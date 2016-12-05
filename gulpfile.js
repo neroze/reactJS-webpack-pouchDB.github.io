@@ -25,7 +25,7 @@ gulp.task("webpack", function(callback) {
 
 // for dev Env
 gulp.task("webpack:build-dev", function(callback) {
-	var myDevConfig = Object.create(webpackConfig);
+	var myDevConfig = Object.assign(Object.create(webpackConfig),{ plugins:[]});
 	myDevConfig.devtool = "sourcemap";
 	myDevConfig.debug = true;
 
@@ -44,10 +44,10 @@ gulp.task("build-prod", ["webpack:build-prod"], function() {
 gulp.task("webpack:build-prod", function(callback) {
 	var myDevConfig = Object.create(webpackConfig);
 	myDevConfig.output.filename = "bundle.min.js";
-
+	
 	return gulp.src('src/client/index.js')
   .pipe(webpack( myDevConfig ))
-  .pipe(uglify())
+  //.pipe(uglify())
   .pipe(gulp.dest('src/client/public/'));
 
 });
