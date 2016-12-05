@@ -12,26 +12,19 @@ gulp.task("build-dev", ["webpack:build-dev"], function() {
 	gulp.watch(["src/client/app/index.js"], ["webpack:build-dev"]);
 });
 
-gulp.task("webpack", function(callback) {
-	
-		var myConfig = Object.create(webpackConfig);
-				myConfig.devtool = "eval";
-				myConfig.debug = true;
-	
+var webpackBuilt = (_config) => {
 	return gulp.src('src/client/index.js')
-  .pipe(webpack( myConfig ))
-  .pipe(gulp.dest('src/client/public/'));
-});
+					  .pipe(webpack( _config ))
+					  .pipe(gulp.dest('src/client/public/'));
+}
 
 // for dev Env
-gulp.task("webpack:build-dev", function(callback) {
+gulp.task("webpack:build-dev", (webpack) => {
 	var myDevConfig = Object.assign(Object.create(webpackConfig),{ plugins:[]});
 	myDevConfig.devtool = "sourcemap";
 	myDevConfig.debug = true;
-
-	return gulp.src('src/client/index.js')
-  .pipe(webpack( myDevConfig ))
-  .pipe(gulp.dest('src/client/public/'));
+	
+ 	return webpackBuilt(myDevConfig);
 
 });
 
@@ -41,13 +34,10 @@ gulp.task("build-prod", ["webpack:build-prod"], function() {
 });
 
 // for dev Env
-gulp.task("webpack:build-prod", function(callback) {
+gulp.task("webpack:build-prod", (callback) => {
 	var myDevConfig = Object.create(webpackConfig);
 	myDevConfig.output.filename = "bundle.min.js";
 	
-	return gulp.src('src/client/index.js')
-  .pipe(webpack( myDevConfig ))
-  //.pipe(uglify())
-  .pipe(gulp.dest('src/client/public/'));
+ 	return webpackBuilt(myDevConfig);
 
 });
