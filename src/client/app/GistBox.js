@@ -12,7 +12,7 @@ var GistBox = React.createClass({
 		$.get(url, function(result) {
 			 var username = result[0].owner.login;
 			 var url = result[0].html_url;
-			 var gists = this.state.gists.concat({username:url});
+			 var gists = this.state.gists.concat({username,url});
 
 			 this.setState({gists});
 		}.bind(this));

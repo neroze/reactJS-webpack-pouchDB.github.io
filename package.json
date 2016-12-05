@@ -15,5 +15,14 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "webpack": "^1.13.3"
+  },
+  "devDependencies": {
+    "gulp-minify": "0.0.14",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "uglify-js": "^2.7.5",
+    "unminified-webpack-plugin": "^1.1.1",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-stream": "^3.2.0"
   }
 }
