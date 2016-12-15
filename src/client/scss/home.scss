@@ -1,0 +1,21 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background-color: #FFF;
+}
+
+.side-bar{
+  	width: 70px;
+  	color: #DDD;
+  	height: 100%;
+  	border-right: 1px solid #DDD;
+  	text-align: center;
+  	padding-top: 10px;
+  }
+
+  .logo{
+  	font-size: 40px;
+  }

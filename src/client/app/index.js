@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import GistBox from './GistBox';
-render(<GistBox/>, document.querySelector("#app"));
+//import GistBox from './GistBox';
+import SideBar from './home/side_bar';
+render(<SideBar/>, document.querySelector("#app"));

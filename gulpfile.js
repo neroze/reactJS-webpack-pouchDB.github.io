@@ -4,9 +4,12 @@ var webpack = require("webpack");
 var webpack = require('webpack-stream');
 var webpackConfig = require("./webpack.config.js");
 var uglify = require('gulp-uglify');
+var watch = require('gulp-watch');
+var connect = require('gulp-connect'); 
+var sass = require('gulp-sass');
 
 // The development server (the recommended option for development)
-gulp.task("default", ["webpack:build-dev"]);
+gulp.task("default", ["webpack:build-dev",'sass']);
 
 gulp.task("build-dev", ["webpack:build-dev"], function() {
 	gulp.watch(["src/client/app/index.js"], ["webpack:build-dev"]);
@@ -15,7 +18,16 @@ gulp.task("build-dev", ["webpack:build-dev"], function() {
 var webpackBuilt = (_config) => {
 	return gulp.src('src/client/index.js')
 					  .pipe(webpack( _config ))
-					  .pipe(gulp.dest('src/client/public/'));
+					  .pipe(gulp.dest('src/client/public/'))
+					  .pipe(connect.reload());
+}
+
+var connectServer = function() {
+  connect.server({
+    root: ['./'],
+    livereload: true,
+    port:8083
+  });
 }
 
 // for dev Env
@@ -26,6 +38,19 @@ gulp.task("webpack:build-dev", (webpack) => {
 	
  	return webpackBuilt(myDevConfig);
 
+});
+
+gulp.task('sass', function () {
+  return gulp.src('src/client/scss/**/*.scss')
+  	.pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('src/client/css/'))
+    .pipe(connect.reload());
+});
+
+gulp.task('watch', function() {
+	connectServer();
+  gulp.watch('src/client/app/**/*.js', ['webpack:build-dev']);
+  gulp.watch('src/client/scss/**/*.scss', ['sass']);
 });
 
 // for production
