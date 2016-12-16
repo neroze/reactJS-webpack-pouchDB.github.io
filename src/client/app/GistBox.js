@@ -1,29 +1,36 @@
 import GistAddForm from "./GistAddForm";
 import Gist from "./Gist";
 const React = require('react');
-import { Button, Alert, Spinner, Glyph } from 'elemental' 
-import { Row, Col, DemoBox,ResponsiveText } from 'elemental' 
 
 var GistBox = React.createClass({
-	
+	getInitialState:function(){
+		return {gists:[]};
+	},
+	addGist:function(username){
+		var url = `https://api.github.com/users/neroze/gists`;
+		console.log(url);
+		$.get(url, function(result) {
+			 var username = result[0].owner.login;
+			 var url = result[0].html_url;
+			 var gists = this.state.gists.concat({username,url});
+
+			 this.setState({gists});
+		}.bind(this));
+	},
+
 	render:function(){
-		
+		var newGist = function(gist){
+			return <Gist username={gist.username} url={gist.url} />
+		};
 
 		return <div>
-							<Row>
-								<Col sm="1/3">
-									<Spinner size="md" />
-								</Col>
-								<Col sm="1/3">
-									<Glyph icon="thumbsup" />
-								</Col>
-								<Col sm="1/3">
-									<Glyph icon="bell" />
-											<ResponsiveText visibleXS="⅓" visibleSM="One Quarter" visibleMD="One Quarter" visibleLG="One Third" />
-								</Col>
-							</Row>
+						<h1>GistBox -- Jumper with live reload</h1>
+						<GistAddForm onAdd={this.addGist} />
+						{this.state.gists.map(newGist)}
+						<button onClick={this.addGist}>Add + </button>
 					</div>
 		
 	}
 });
-export default GistBox;
+module.exports = GistBox;
+//export default GistBox;

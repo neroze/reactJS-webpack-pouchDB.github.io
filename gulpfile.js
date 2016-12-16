@@ -41,7 +41,7 @@ gulp.task("webpack:build-dev", (webpack) => {
 });
 
 gulp.task('sass', function () {
-  return gulp.src('src/client/scss/**/*.scss')
+  return gulp.src('src/client/scss/**/*.sass')
   	.pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('src/client/css/'))
     .pipe(connect.reload());
@@ -50,7 +50,7 @@ gulp.task('sass', function () {
 gulp.task('watch', function() {
 	connectServer();
   gulp.watch('src/client/app/**/*.js', ['webpack:build-dev']);
-  gulp.watch('src/client/scss/**/*.scss', ['sass']);
+  gulp.watch('src/client/scss/**/*.sass', ['sass']);
 });
 
 // for production
