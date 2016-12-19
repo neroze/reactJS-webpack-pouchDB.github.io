@@ -56,26 +56,36 @@
 	
 	var _CardList2 = _interopRequireDefault(_CardList);
 	
-	var _GistBox = __webpack_require__(238);
+	var _Checkout = __webpack_require__(240);
+	
+	var _Checkout2 = _interopRequireDefault(_Checkout);
+	
+	var _GistBox = __webpack_require__(241);
 	
 	var _GistBox2 = _interopRequireDefault(_GistBox);
 	
-	var _side_bar = __webpack_require__(241);
+	var _side_bar = __webpack_require__(244);
 	
 	var _side_bar2 = _interopRequireDefault(_side_bar);
+	
+	var _register = __webpack_require__(239);
+	
+	var _register2 = _interopRequireDefault(_register);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 		'div',
 		null,
-		_react2.default.createElement(_side_bar2.default, null),
 		_react2.default.createElement(
 			'div',
 			{ className: 'card-collection' },
 			_react2.default.createElement(_CardList2.default, null)
 		)
 	), document.querySelector("#app"));
+	
+	// <SideBar/>
+	// <Checkout/>
 	
 	// render(<GistBox/>, document.querySelector("#app"));
 
@@ -21500,6 +21510,14 @@
 	
 	var _Card2 = _interopRequireDefault(_Card);
 	
+	var _Dataholder = __webpack_require__(238);
+	
+	var _Dataholder2 = _interopRequireDefault(_Dataholder);
+	
+	var _register = __webpack_require__(239);
+	
+	var _register2 = _interopRequireDefault(_register);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var React = __webpack_require__(1);
@@ -21514,13 +21532,22 @@
 				id: 3
 			};
 		},
+		pushUser: function pushUser(_newObj) {
+			console.log(_newObj);
+			//this.props.onAdd({name:this.state.username, email:this.state.email });
+			var cards = this.state.cards;
+			cards.push(_newObj);
+			this.setState({ cards: cards });
+		},
 		addMore: function addMore() {
 			this.state.id++;
+			_Dataholder2.default.increment();
 			//this.state.cards.push();
 			var name = "Niraj";
 			var id = this.state.id;
 	
-			var cards = this.state.cards.push({ name: name, id: id });
+			var cards = this.state.cards;
+			cards.push({ name: name, id: id });
 			this.setState({ cards: cards });
 			console.log(this.state.cards);
 			console.log("pushing new one");
@@ -21528,13 +21555,14 @@
 		render: function render() {
 			return React.createElement(
 				'div',
-				null,
+				{ className: 'container' },
+				React.createElement(_register2.default, { addCard: this.pushUser }),
 				this.state.cards.map(function (card) {
-					return React.createElement(_Card2.default, { key: card.id, id: card.id, name: card.name, 'class': 'col-md-3' });
+					return React.createElement(_Card2.default, { key: card.id, id: card.id, email: card.email, name: card.name, 'class': 'col-md-3' });
 				}),
 				React.createElement(
 					'button',
-					{ onClick: this.addMore },
+					{ className: 'hide', onClick: this.addMore },
 					'Add + '
 				)
 			);
@@ -21567,7 +21595,10 @@
 			return React.createElement(
 				_elemental.Card,
 				{ id: this.props.id, onClick: this.sayHello, className: 'col-md-3' },
-				this.props.name
+				this.props.name,
+				' ( ',
+				this.props.email,
+				')'
 			);
 		}
 	});
@@ -26510,15 +26541,157 @@
 
 /***/ },
 /* 238 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+	var Data = {
+			value: 1,
+			increment: function increment() {
+					this.value++;
+			},
+			getValue: function getValue() {
+					return this.value;
+			}
+	};
+	
+	exports.default = Data;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _CardList = __webpack_require__(178);
+	
+	var _CardList2 = _interopRequireDefault(_CardList);
+	
+	var _elemental = __webpack_require__(180);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Register = _react2.default.createClass({
+	  displayName: 'Register',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      gists: [],
+	      email: "",
+	      name: "",
+	      id: 10
+	    };
+	  },
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    //alert("submitting");
+	    this.props.addCard({ id: this.state.id++, email: this.state.email, name: this.state.name });
+	    return false;
+	  },
+	  handleChange: function handleChange(event) {
+	    console.log(event.target.id);
+	    // console.log(JCardList.state);
+	    switch (event.target.id) {
+	      case 'email':
+	        this.setState({ email: event.target.value });
+	        break;
+	      case 'name':
+	        this.setState({ name: event.target.value });
+	        break;
+	    }
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container' },
+	      _react2.default.createElement(
+	        _elemental.Form,
+	        { type: 'horizontal', onSubmit: this.onSubmit },
+	        _react2.default.createElement(
+	          _elemental.FormField,
+	          { label: 'Email address', htmlFor: 'horizontal-form-input-email' },
+	          _react2.default.createElement(_elemental.FormInput, { type: 'text', placeholder: 'Email', onChange: this.handleChange, id: 'email', name: 'horizontal-form-input-email' }),
+	          this.state.email
+	        ),
+	        _react2.default.createElement(
+	          _elemental.FormField,
+	          { label: 'Name', htmlFor: 'horizontal-form-input-password' },
+	          _react2.default.createElement(_elemental.FormInput, { type: 'text', placeholder: 'Name', onChange: this.handleChange, id: 'name', name: 'horizontal-form-input-password' }),
+	          this.state.password
+	        ),
+	        _react2.default.createElement(
+	          _elemental.FormField,
+	          { offsetAbsentLabel: true },
+	          _react2.default.createElement(
+	            _elemental.Button,
+	            { submit: true },
+	            'Submit'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = Register;
+	//export default GistBox;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _Dataholder = __webpack_require__(238);
+	
+	var _Dataholder2 = _interopRequireDefault(_Dataholder);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var React = __webpack_require__(1);
+	
+	
+	var Checkout = React.createClass({
+		displayName: 'Checkout',
+	
+		logState: function logState() {
+			console.log(_Dataholder2.default.getValue());
+		},
+		render: function render() {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'button',
+					{ onClick: this.logState },
+					'Checkout '
+				)
+			);
+		}
+	});
+	exports.default = Checkout;
+
+/***/ },
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _GistAddForm = __webpack_require__(239);
+	var _GistAddForm = __webpack_require__(242);
 	
 	var _GistAddForm2 = _interopRequireDefault(_GistAddForm);
 	
-	var _Gist = __webpack_require__(240);
+	var _Gist = __webpack_require__(243);
 	
 	var _Gist2 = _interopRequireDefault(_Gist);
 	
@@ -26571,7 +26744,7 @@
 	//export default GistBox;
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26591,8 +26764,7 @@
 		},
 		addGist: function addGist(e) {
 			e.preventDefault();
-	
-			this.props.onAdd(this.state.username);
+			this.props.pushCard(this.state.username);
 			this.setState({ username: '' });
 		},
 		render: function render() {
@@ -26616,7 +26788,7 @@
 	exports.default = GistAddForm;
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26646,7 +26818,7 @@
 	exports.default = Gist;
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -49,6 +49,8 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function() {
 	connectServer();
+	gulp.start('sass');
+	gulp.start('webpack:build-dev');
   gulp.watch('src/client/app/**/*.js', ['webpack:build-dev']);
   gulp.watch('src/client/scss/**/*.sass', ['sass']);
 });

@@ -8,8 +8,7 @@ var GistAddForm = React.createClass({
 	},
 	addGist:function(e){
 		e.preventDefault();
-
-		this.props.onAdd(this.state.username);
+		this.props.pushCard(this.state.username);
 		this.setState({username:''});
 	},
 	render:function(){

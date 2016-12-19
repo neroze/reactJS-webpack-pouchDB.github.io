@@ -7,7 +7,7 @@ var JCard = React.createClass({
 	},
 	render:function(){
 		return (
-			<Card id={this.props.id} onClick={this.sayHello} className="col-md-3">{this.props.name}</Card>
+			<Card id={this.props.id} onClick={this.sayHello} className="col-md-3">{this.props.name} ( {this.props.email})</Card>
 		)
 		
 	}
