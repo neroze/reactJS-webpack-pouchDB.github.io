@@ -14,6 +14,8 @@
     "babel-preset-react": "^6.16.0",
     "elemental": "^0.6.1",
     "gulp-connect": "^5.0.0",
+    "lodash": "^4.17.2",
+    "pouchdb": "^6.1.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "webpack": "^1.13.3"
