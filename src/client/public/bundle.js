@@ -56,18 +56,6 @@
 	
 	var _CardList2 = _interopRequireDefault(_CardList);
 	
-	var _Checkout = __webpack_require__(254);
-	
-	var _Checkout2 = _interopRequireDefault(_Checkout);
-	
-	var _GistBox = __webpack_require__(255);
-	
-	var _GistBox2 = _interopRequireDefault(_GistBox);
-	
-	var _side_bar = __webpack_require__(258);
-	
-	var _side_bar2 = _interopRequireDefault(_side_bar);
-	
 	var _register = __webpack_require__(239);
 	
 	var _register2 = _interopRequireDefault(_register);
@@ -21691,7 +21679,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
 	var _elemental = __webpack_require__(180);
@@ -21700,30 +21688,34 @@
 	
 	
 	var JCard = React.createClass({
-		displayName: 'JCard',
+	    displayName: 'JCard',
 	
-		edit: function edit(e) {
-			e.preventDefault();
-			this.props.onEdit({ name: this.props.name, email: this.props.email });
-		},
-		removeCard: function removeCard() {
-			this.props.onRemove(this.props.email);
-		},
-		render: function render() {
-			return React.createElement(
-				_elemental.Card,
-				{ id: this.props.id, className: 'col-md-3' },
-				this.props.name,
-				' ',
-				React.createElement('br', null),
-				' ( ',
-				this.props.email,
-				')',
-				React.createElement('i', { className: 'fa fa-trash-o red float-right', onClick: this.removeCard }),
-				React.createElement('i', { className: 'fa fa-edit info float-right', onClick: this.edit })
-			);
-		}
+	    edit: function edit(e) {
+	        e.preventDefault();
+	        this.props.onEdit({
+	            name: this.props.name,
+	            email: this.props.email
+	        });
+	    },
+	    removeCard: function removeCard() {
+	        this.props.onRemove(this.props.email);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            _elemental.Card,
+	            { id: this.props.id, className: 'col-md-3' },
+	            this.props.name,
+	            ' ',
+	            React.createElement('br', null),
+	            ' ( ',
+	            this.props.email,
+	            ')',
+	            React.createElement('i', { className: 'fa fa-trash-o red float-right', onClick: this.removeCard }),
+	            React.createElement('i', { className: 'fa fa-edit info float-right', onClick: this.edit })
+	        );
+	    }
 	});
+	
 	exports.default = JCard;
 
 /***/ },
@@ -26780,7 +26772,6 @@
 	    }
 	});
 	module.exports = Register;
-	//export default GistBox;
 
 /***/ },
 /* 240 */
@@ -57177,209 +57168,6 @@
 	  }
 	};
 
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _Dataholder = __webpack_require__(238);
-	
-	var _Dataholder2 = _interopRequireDefault(_Dataholder);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var React = __webpack_require__(1);
-	
-	
-	var Checkout = React.createClass({
-		displayName: 'Checkout',
-	
-		logState: function logState() {
-			console.log(_Dataholder2.default.getValue());
-		},
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'button',
-					{ onClick: this.logState },
-					'Checkout '
-				)
-			);
-		}
-	});
-	exports.default = Checkout;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _GistAddForm = __webpack_require__(256);
-	
-	var _GistAddForm2 = _interopRequireDefault(_GistAddForm);
-	
-	var _Gist = __webpack_require__(257);
-	
-	var _Gist2 = _interopRequireDefault(_Gist);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var React = __webpack_require__(1);
-	
-	var GistBox = React.createClass({
-		displayName: "GistBox",
-	
-		getInitialState: function getInitialState() {
-			return { gists: [] };
-		},
-		addGist: function addGist(username) {
-			var url = "https://api.github.com/users/neroze/gists";
-			console.log(url);
-			$.get(url, function (result) {
-				var username = result[0].owner.login;
-				var url = result[0].html_url;
-				var gists = this.state.gists.concat({ username: username, url: url });
-	
-				this.setState({ gists: gists });
-			}.bind(this));
-		},
-	
-		render: function render() {
-			var newGist = function newGist(gist) {
-				return React.createElement(_Gist2.default, { username: gist.username, url: gist.url });
-			};
-	
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(
-					"h1",
-					null,
-					"GistBox -- Jumper with live reload"
-				),
-				React.createElement(_GistAddForm2.default, { onAdd: this.addGist }),
-				this.state.gists.map(newGist),
-				React.createElement(
-					"button",
-					{ onClick: this.addGist },
-					"Add + "
-				)
-			);
-		}
-	});
-	module.exports = GistBox;
-	//export default GistBox;
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var React = __webpack_require__(1);
-	var GistAddForm = React.createClass({
-		displayName: 'GistAddForm',
-	
-		getInitialState: function getInitialState() {
-			return { username: "" };
-		},
-		onChange: function onChange(e) {
-			this.setState({ username: e.target.value });
-		},
-		addGist: function addGist(e) {
-			e.preventDefault();
-			this.props.pushCard(this.state.username);
-			this.setState({ username: '' });
-		},
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'form',
-					{ className: 'form-inline', onSubmit: this.addGist },
-					React.createElement('input', { value: this.state.username, onChange: this.onChange, placeholder: 'Enter User Name' }),
-					React.createElement(
-						'button',
-						null,
-						' Fetch Latest Gist'
-					)
-				)
-			);
-		}
-	});
-	
-	exports.default = GistAddForm;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var React = __webpack_require__(1);
-	var Gist = React.createClass({
-		displayName: 'Gist',
-	
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				this.props.username,
-				' last Gist is ',
-				React.createElement(
-					'a',
-					{ href: this.props.url },
-					'here'
-				)
-			);
-		}
-	});
-	
-	exports.default = Gist;
-
-/***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _elemental = __webpack_require__(180);
-	
-	var React = __webpack_require__(1);
-	
-	
-	var SideBar = React.createClass({
-		displayName: 'SideBar',
-	
-		render: function render() {
-			return React.createElement(
-				'div',
-				{ className: 'side-bar' },
-				React.createElement('div', { className: 'logo fa fa-tree' })
-			);
-		}
-	});
-	exports.default = SideBar;
 
 /***/ }
 /******/ ]);

@@ -1,7 +1,5 @@
-# commands
+#Core base skelton 
+https://github.com/neroze/react-webpack-boilerplate
 
-## for development ( un minified version)
-gulp build-dev
-
-## for production ( minified version / will create bundle.min.js )
-gulp build-prod
+# This repo test app with ReactJS + webPack + PouchDB
+<a href="https://neroze.github.io/reactJS-webpack-pouchDB.github.io/" >Demo</a>

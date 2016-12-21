@@ -66,4 +66,3 @@ var Register = React.createClass({
     }
 });
 module.exports = Register;
-//export default GistBox;
